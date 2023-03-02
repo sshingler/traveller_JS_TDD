@@ -14,11 +14,17 @@ Traveller.prototype.getJourneyEndLocations = function () {
   });
 };
 
+// Traveller.prototype.getJourneysByTransport = function (transport) {
+//   return this.journeys.filter ((journey) => {
+//     return journey.transport === transport;
+//   });
+// };
+
+
+//// example of refactored code 
 Traveller.prototype.getJourneysByTransport = function (transport) {
-  return this.journeys.filter ((journey) => {
-    return journey.transport === transport;
-  });
-};
+return this.journeys.filter(journey => journey.transport === transport);
+}; 
 
 Traveller.prototype.getJourneysByMinDistance = function (minDistance) {
   return this.journeys.filter ((journey) => {
@@ -36,15 +42,16 @@ Traveller.prototype.calculateTotalDistanceTravelled = function () {
 
 
 
-// Traveller.prototype.getUniqueModesOfTransport = function () {
-//   return this.journeys.map ((journey) => {
-//     return journey.transport;
-//   });
-//   return this.journeys.filter ((journey) => {
 
-//   })
 
-// };
 
+Traveller.prototype.getUniqueModesOfTransport = function () {
+const transportTypes = this.journeys.map (journey => journey.transport)
+const filteredTransports = transportTypes.filter((journey, index, array) => {
+  // train - 0, train - 1, aeroplane - 2, car -3, ferry - 4
+  return index === array.indexOf(journey);
+});
+return filteredTransports;
+};
 
 module.exports = Traveller;
